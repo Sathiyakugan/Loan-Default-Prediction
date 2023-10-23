@@ -84,7 +84,8 @@ class DataTransformer(BaseEstimator, TransformerMixin):
         """Applies logarithmic transformation to specified columns."""
 
         if not self.columns:
-            self.columns = [col for col in X.columns if X[col].dtype in [np.float64, np.int64]]
+            self.columns = [col for col in X.columns if
+                            X[col].dtype in [np.float64, np.int64, np.int16, np.int8, np.int32, np.int64]]
 
         X_transformed = X.copy()
         for col in self.columns:
@@ -146,7 +147,8 @@ class DataScaler(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
         """Fits the scaler using the specified columns."""
         if not self.columns:
-            self.columns = [col for col in X.columns if X[col].dtype in [np.float64, np.int64]]
+            self.columns = [col for col in X.columns if
+                            X[col].dtype in [np.float64, np.int64, np.int16, np.int8, np.int32, np.int64]]
         self.scaler.fit(X[self.columns])
         return self
 
